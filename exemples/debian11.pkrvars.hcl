@@ -34,23 +34,20 @@ iso_checksum = "4460ef6470f6d8ae193c268e213d33a6a5a0da90c2d30c1024784faa4e4473f0
 
 ### VM variables
 vm_name = "template-linux-debian-11"
-vm_guest_os = "ubuntu64Guest"
-vm_guest_version = "19"
-vm_cpu = 2
-vm_cpu_hot_plug = true
-vm_memory = 4096
-vm_memory_reserve_all = true
-vm_memory_hot_plug = true
+guest_os_type = "ubuntu64Guest"
+guest_os_version = "19"
+cpu = 2
+cpu_hot_plug = true
+memory = 4096
+memory_reserve_all = true
+memory_hot_plug = true
 vm_network = "templates"
 vm_network_card = "vmxnet3"
 disk_size = 7168
 disk_thin_provisioned = true
 
 ### Boot command
-#boot_order = "disk"
-#boot_wait = "10s"
-#boot_keygroup_interval = "5ms"
-os_autoinstall_path = "packer-unattended_distrib_files/linux/debian/preseed.pkrtpl"
+autoinstall_file_path = "exemples/preseed.pkrtpl"
 boot_command = [
     "<esc><wait>",
     "auto <wait>",
@@ -64,24 +61,17 @@ boot_command = [
     "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
     "<enter><wait>"
 ]
-#http_port_min = 8080
-#http_port_max = 8080
-
-
 #ssh settings
 ssh_username            = "set in env var"
 ssh_password            = "set in env var"
 root_password           = "set in env var"
 ssh_timeout = "5m"
 
-
-
-template_net_ip = "10.4.255.2"
-template_net_dns        = "10.1.80.155"
-template_net_dns2       = "10.1.80.156"
-template_net_gateway    = "10.4.255.1"
+net_ip = "10.4.255.2"
+net_dns        = "10.1.80.155"
+net_gateway    = "10.4.255.1"
 http_proxy          = "http://10.1.80.5:80"
 
 ### Provisionning Ansible
-ansible_path		= "/opt/ansible_core"
+ansible_path		= "exemples/ansible"
 ansible_groups = ["pau", "os_debian11", "groups_packer_build"]

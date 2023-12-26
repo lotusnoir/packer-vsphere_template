@@ -1,18 +1,3 @@
-#packer {                                                                                                 
-#  required_version = ">= 1.8.0"
-#  required_plugins {
-#    vsphere = {
-#      version = ">= 1.0.6"
-#    }
-#  }
-#  required_plugins{
-#    windows-update = {
-#      version =">= 0.14.3"
-#    }
-#  }
-#}
-
-
 packer {
   required_plugins {
     vsphere = {
@@ -22,6 +7,10 @@ packer {
     ansible = {
       source  = "github.com/hashicorp/ansible"
       version = "~> 1"
+    }
+    windows-update = {
+      source = "github.com/rgl/windows-update"
+      version = ">= 0.14.3"
     }
   }
 }
