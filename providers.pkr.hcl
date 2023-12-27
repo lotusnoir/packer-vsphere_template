@@ -9,7 +9,7 @@ packer {
       version = "~> 1"
     }
     windows-update = {
-      source = "github.com/rgl/windows-update"
+      source  = "github.com/rgl/windows-update"
       version = ">= 0.14.3"
     }
   }
