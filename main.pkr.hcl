@@ -13,7 +13,7 @@ source "vsphere-iso" "this" {
 
   ### Http directory configuration
   http_directory = var.http_directory
-  http_content   = var.http_content == false ? {} : {
+  http_content   = var.http_content_filename == "" ? {} : merge({
     "/${var.http_content_filename}" = templatefile(var.http_content_filename_path, {
       internet_install  = var.internet_install
       root_password   = var.root_password,
@@ -29,9 +29,8 @@ source "vsphere-iso" "this" {
       disk_swap_size  = var.disk_swap_size,
       disk_boot_size  = var.disk_boot_size,
       http_proxy      = var.http_proxy
-
     })
-  }
+  }, var.http_content_extra)
   http_port_min     = var.http_port_min
   http_port_max     = var.http_port_max
   http_bind_address = var.http_bind_address
@@ -40,7 +39,7 @@ source "vsphere-iso" "this" {
   floppy_img_path = var.floppy_img_path
   floppy_files    = var.floppy_files
   floppy_dirs     = var.floppy_dirs
-  floppy_content   = var.floppy_content == false ? {} : {
+  floppy_content   = var.floppy_content_filename == "" ? {} : merge({
     "/${var.floppy_content_filename}" = templatefile(var.floppy_content_filename_path, {
       internet_install  = var.internet_install
       root_password   = var.root_password,
@@ -56,9 +55,8 @@ source "vsphere-iso" "this" {
       disk_swap_size  = var.disk_swap_size,
       disk_boot_size  = var.disk_boot_size,
       http_proxy      = var.http_proxy
-
     })
-  }
+  }, var.floppy_content_extra)
   floppy_label    = var.floppy_label
 
   ### Connection Configuration
@@ -121,7 +119,7 @@ source "vsphere-iso" "this" {
   iso_paths    = var.iso_paths
   remove_cdrom = var.remove_cdrom
   cd_files     = var.cd_files
-  cd_content   = var.cd_content == false ? {} : {
+  cd_content   = var.cd_content_filename == "" ? {} : merge({
     "/${var.cd_content_filename}" = templatefile(var.cd_content_filename_path, {
       internet_install  = var.internet_install
       root_password   = var.root_password,
@@ -138,7 +136,7 @@ source "vsphere-iso" "this" {
       disk_boot_size  = var.disk_boot_size,
       http_proxy      = var.http_proxy
     })
-  }
+  }, var.cd_content_extra)
   cd_label     = var.cd_label
 
   ### Create Configuration
@@ -156,7 +154,6 @@ source "vsphere-iso" "this" {
     disk_size             = var.disk_size
     disk_thin_provisioned = var.disk_thin_provisioned
   }
-
 
   ### Network Adapter Configuration
 
@@ -185,7 +182,6 @@ source "vsphere-iso" "this" {
   ssh_bastion_username         = var.ssh_bastion_username
   ssh_bastion_password         = var.ssh_bastion_password
   ssh_bastion_interactive      = var.ssh_bastion_interactive
-
 }
 
 

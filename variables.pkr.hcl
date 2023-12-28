@@ -44,10 +44,6 @@ variable "internet_install" {
   type    = bool
   default = true
 }
-variable "http_content" {
-  type    = bool
-  default = false
-}
 variable "http_content_filename" {
   type    = string
   default = ""
@@ -55,6 +51,10 @@ variable "http_content_filename" {
 variable "http_content_filename_path" {
   type = string
   default = ""
+}
+variable "http_content_extra" {
+  type    = map(string)
+  default = {}
 }
 variable "root_password" {
   type      = string
@@ -137,11 +137,6 @@ variable "floppy_dirs" {
   type        = list(string)
   default     = null
 }
-variable "floppy_content" {
-  description = "Key/Values to add to the floppy disk. The keys represent the paths, and the values contents. It can be used alongside floppy_files or floppy_dirs, which is useful to add large files without loading them into memory."
-  type        = bool
-  default     = false
-}
 variable "floppy_label" {
   description = "The label to use for the floppy disk that is attached when the VM is booted. This is most useful for cloud-init, Kickstart or other early initialization tools, which can benefit from labelled floppy disks."
   type        = string
@@ -149,13 +144,16 @@ variable "floppy_label" {
 }
 variable "floppy_content_filename" {
   type    = string
-  default = "preseed.cfg"
+  default = ""
 }
 variable "floppy_content_filename_path" {
   type = string
   default = ""
 }
-
+variable "floppy_content_extra" {
+  type    = map(string)
+  default = {}
+}
 
 
 #############################################################
@@ -375,9 +373,9 @@ variable "cd_files" {
   type    = list(string)
   default = []
 }
-variable "cd_content" {
-  type    = bool
-  default = false
+variable "cd_content_extra" {
+  type    = map(string)
+  default = {}
 }
 variable "cd_label" {
   type    = string
@@ -385,7 +383,7 @@ variable "cd_label" {
 }
 variable "cd_content_filename" {
   type    = string
-  default = "preseed.cfg"
+  default = ""
 }
 variable "cd_content_filename_path" {
   type = string
