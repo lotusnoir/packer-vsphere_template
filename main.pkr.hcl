@@ -13,8 +13,9 @@ source "vsphere-iso" "this" {
 
   ### Http directory configuration
   http_directory = var.http_directory
-  http_content = {
+  http_content   = var.http_content == false ? {} : {
     "/${var.http_content_filename}" = templatefile(var.http_content_filename_path, {
+      internet_install  = var.internet_install
       root_password   = var.root_password,
       ssh_username    = var.ssh_username,
       ssh_password    = var.ssh_password,
@@ -39,7 +40,25 @@ source "vsphere-iso" "this" {
   floppy_img_path = var.floppy_img_path
   floppy_files    = var.floppy_files
   floppy_dirs     = var.floppy_dirs
-  floppy_content  = var.floppy_content
+  floppy_content   = var.floppy_content == false ? {} : {
+    "/${var.floppy_content_filename}" = templatefile(var.floppy_content_filename_path, {
+      internet_install  = var.internet_install
+      root_password   = var.root_password,
+      ssh_username    = var.ssh_username,
+      ssh_password    = var.ssh_password,
+      net_ip          = var.net_ip,
+      net_gateway     = var.net_gateway,
+      net_netmask     = var.net_netmask,
+      net_dns         = var.net_dns,
+      timezone        = var.timezone,
+      locales         = var.locales,
+      keyboard_layout = var.keyboard_layout,
+      disk_swap_size  = var.disk_swap_size,
+      disk_boot_size  = var.disk_boot_size,
+      http_proxy      = var.http_proxy
+
+    })
+  }
   floppy_label    = var.floppy_label
 
   ### Connection Configuration
@@ -97,15 +116,30 @@ source "vsphere-iso" "this" {
   iso_target_path      = var.iso_target_path
   iso_target_extension = var.iso_target_extension
 
-
   ### CDRom Configuration
   cdrom_type   = var.cdrom_type
   iso_paths    = var.iso_paths
   remove_cdrom = var.remove_cdrom
   cd_files     = var.cd_files
-  cd_content   = var.cd_content
+  cd_content   = var.cd_content == false ? {} : {
+    "/${var.cd_content_filename}" = templatefile(var.cd_content_filename_path, {
+      internet_install  = var.internet_install
+      root_password   = var.root_password,
+      ssh_username    = var.ssh_username,
+      ssh_password    = var.ssh_password,
+      net_ip          = var.net_ip,
+      net_gateway     = var.net_gateway,
+      net_netmask     = var.net_netmask,
+      net_dns         = var.net_dns,
+      timezone        = var.timezone,
+      locales         = var.locales,
+      keyboard_layout = var.keyboard_layout,
+      disk_swap_size  = var.disk_swap_size,
+      disk_boot_size  = var.disk_boot_size,
+      http_proxy      = var.http_proxy
+    })
+  }
   cd_label     = var.cd_label
-
 
   ### Create Configuration
   vm_version    = var.guest_os_version

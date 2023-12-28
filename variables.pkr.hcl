@@ -40,12 +40,21 @@ variable "http_directory" {
 }
 ########################
 #variable "http_content"
+variable "internet_install" {
+  type    = bool
+  default = true
+}
+variable "http_content" {
+  type    = bool
+  default = false
+}
 variable "http_content_filename" {
   type    = string
-  default = "preseed.cfg"
+  default = ""
 }
 variable "http_content_filename_path" {
   type = string
+  default = ""
 }
 variable "root_password" {
   type      = string
@@ -70,11 +79,11 @@ variable "net_dns" {
 }
 variable "timezone" {
   type    = string
-  default = null
+  default = "Europe/Paris"
 }
 variable "locales" {
   type    = string
-  default = null
+  default = "en_US.UTF-8"
 }
 variable "keyboard_layout" {
   type    = string
@@ -130,14 +139,23 @@ variable "floppy_dirs" {
 }
 variable "floppy_content" {
   description = "Key/Values to add to the floppy disk. The keys represent the paths, and the values contents. It can be used alongside floppy_files or floppy_dirs, which is useful to add large files without loading them into memory."
-  type        = map(string)
-  default     = {}
+  type        = bool
+  default     = false
 }
 variable "floppy_label" {
   description = "The label to use for the floppy disk that is attached when the VM is booted. This is most useful for cloud-init, Kickstart or other early initialization tools, which can benefit from labelled floppy disks."
   type        = string
   default     = "packer"
 }
+variable "floppy_content_filename" {
+  type    = string
+  default = "preseed.cfg"
+}
+variable "floppy_content_filename_path" {
+  type = string
+  default = ""
+}
+
 
 
 #############################################################
@@ -358,12 +376,20 @@ variable "cd_files" {
   default = []
 }
 variable "cd_content" {
-  type    = map(string)
-  default = {}
+  type    = bool
+  default = false
 }
 variable "cd_label" {
   type    = string
   default = null
+}
+variable "cd_content_filename" {
+  type    = string
+  default = "preseed.cfg"
+}
+variable "cd_content_filename_path" {
+  type = string
+  default = ""
 }
 
 
