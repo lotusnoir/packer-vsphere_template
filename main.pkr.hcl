@@ -16,18 +16,18 @@ source "vsphere-iso" "this" {
   http_content   = var.http_content_filename == "" ? {} : merge({
     "/${var.http_content_filename}" = templatefile(var.http_content_filename_path, {
       internet_install  = var.internet_install
-      root_password   = var.root_password,
-      ssh_username    = var.ssh_username,
-      ssh_password    = var.ssh_password,
-      net_ip          = var.net_ip,
-      net_gateway     = var.net_gateway,
-      net_netmask     = var.net_netmask,
-      net_dns         = var.net_dns,
-      timezone        = var.timezone,
-      locales         = var.locales,
-      keyboard_layout = var.keyboard_layout,
-      disk_swap_size  = var.disk_swap_size,
-      disk_boot_size  = var.disk_boot_size,
+      root_password   = var.root_password
+      ssh_username    = var.ssh_username
+      ssh_password    = var.cd_content_filename == "user-data" ? bcrypt("${var.ssh_password}") : var.ssh_password
+      net_ip          = var.net_ip
+      net_gateway     = var.net_gateway
+      net_netmask     = var.net_netmask
+      net_dns         = var.net_dns
+      timezone        = var.timezone
+      locales         = var.locales
+      keyboard_layout = var.keyboard_layout
+      disk_swap_size  = var.disk_swap_size
+      disk_boot_size  = var.disk_boot_size
       http_proxy      = var.http_proxy
     })
   }, var.http_content_extra)
@@ -42,18 +42,18 @@ source "vsphere-iso" "this" {
   floppy_content   = var.floppy_content_filename == "" ? {} : merge({
     "/${var.floppy_content_filename}" = templatefile(var.floppy_content_filename_path, {
       internet_install  = var.internet_install
-      root_password   = var.root_password,
-      ssh_username    = var.ssh_username,
-      ssh_password    = var.ssh_password,
-      net_ip          = var.net_ip,
-      net_gateway     = var.net_gateway,
-      net_netmask     = var.net_netmask,
-      net_dns         = var.net_dns,
-      timezone        = var.timezone,
-      locales         = var.locales,
-      keyboard_layout = var.keyboard_layout,
-      disk_swap_size  = var.disk_swap_size,
-      disk_boot_size  = var.disk_boot_size,
+      root_password   = var.root_password
+      ssh_username    = var.ssh_username
+      ssh_password    = var.ssh_password
+      net_ip          = var.net_ip
+      net_gateway     = var.net_gateway
+      net_netmask     = var.net_netmask
+      net_dns         = var.net_dns
+      timezone        = var.timezone
+      locales         = var.locales
+      keyboard_layout = var.keyboard_layout
+      disk_swap_size  = var.disk_swap_size
+      disk_boot_size  = var.disk_boot_size
       http_proxy      = var.http_proxy
     })
   }, var.floppy_content_extra)
