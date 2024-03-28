@@ -17,8 +17,27 @@ root_password
 ssh_username
 ssh_password
 
-In plain just set value = "xxxx"
-In env vars set it in the system like export PKR_VAR_xxxxx = "xxxx"
-In vault set in the variable the key value of the object in vault + assign the var.vault_kv_path
+#### In plain 
+
+just set in your variables.pkrvars.hcl
+
+    value = "xxxx"
+
+#### In Env
+
+Create a executable file containing
+
+    export PKR_VAR_xxxxx = "xxxx"
 
 The problem with the env its that you can set differents values for the same variable
+
+#### In vault
+
+just set in your variables.pkrvars.hcl
+
+    secrets_method = "vault"
+    vault_kv_path = "kv/data/terraform"
+    vsphere_server = "vsphere_server"
+
+In vault path you need to have the vsphere credentials in a subfolder vsphere and ssh ones in a subfolder ssh
+In the variables you dont assign the value but the vaul key tto find the value
