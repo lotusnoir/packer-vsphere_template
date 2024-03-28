@@ -7,6 +7,16 @@ variable "convert_to_template" {
   default = false
 }
 
+variable "secrets_method" {
+  type    = string
+  default = "plain" #or vault
+}
+
+variable "vault_kv_path" {
+  type    = string
+  default = ""
+}
+
 ##########################################################
 ### Boot Configuration
 variable "boot_keygroup_interval" {
@@ -59,6 +69,7 @@ variable "http_content_extra" {
 variable "root_password" {
   type      = string
   sensitive = true
+  default = null
 }
 variable "net_ip" {
   type    = string
@@ -161,15 +172,18 @@ variable "floppy_content_extra" {
 variable "vsphere_server" {
   description = "vCenter Server hostname"
   type        = string
+  default = null
 }
 variable "vsphere_username" {
   description = "vCenter username"
   type        = string
+  default = null
 }
 variable "vsphere_password" {
   description = "vSphere password"
   type        = string
   sensitive   = true
+  default = null
 }
 variable "insecure_connection" {
   description = "Do not validate the vCenter Server TLS certificate"
@@ -466,7 +480,7 @@ variable "ssh_port" {
 variable "ssh_username" {
   description = "The username to connect to SSH with. Required if using SSH."
   type        = string
-  default     = ""
+  default     = "packer"
 }
 variable "ssh_password" {
   description = "A plaintext password to use to authenticate with SSH."

@@ -16,9 +16,9 @@ source "vsphere-iso" "this" {
   http_content   = var.http_content_filename == "" ? {} : merge({
     "/${var.http_content_filename}" = templatefile(var.http_content_filename_path, {
       internet_install  = var.internet_install
-      root_password   = var.root_password
-      ssh_username    = var.ssh_username
-      ssh_password    = var.cd_content_filename == "user-data" ? bcrypt("${var.ssh_password}") : var.ssh_password
+      root_password   = local.root_password
+      ssh_username    = local.ssh_username
+      ssh_password    = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
       net_ip          = var.net_ip
       net_gateway     = var.net_gateway
       net_netmask     = var.net_netmask
@@ -42,9 +42,9 @@ source "vsphere-iso" "this" {
   floppy_content   = var.floppy_content_filename == "" ? {} : merge({
     "/${var.floppy_content_filename}" = templatefile(var.floppy_content_filename_path, {
       internet_install  = var.internet_install
-      root_password   = var.root_password
-      ssh_username    = var.ssh_username
-      ssh_password    = var.ssh_password
+      root_password   = local.root_password
+      ssh_username    = local.ssh_username
+      ssh_password    = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
       net_ip          = var.net_ip
       net_gateway     = var.net_gateway
       net_netmask     = var.net_netmask
@@ -60,9 +60,9 @@ source "vsphere-iso" "this" {
   floppy_label    = var.floppy_label
 
   ### Connection Configuration
-  vcenter_server      = var.vsphere_server
-  username            = var.vsphere_username
-  password            = var.vsphere_password
+  vcenter_server      = local.vsphere_server
+  username            = local.vsphere_username
+  password            = local.vsphere_password
   insecure_connection = var.insecure_connection
   datacenter          = var.vsphere_datacenter
 
@@ -122,9 +122,9 @@ source "vsphere-iso" "this" {
   cd_content   = var.cd_content_filename == "" ? {} : merge({
     "/${var.cd_content_filename}" = templatefile(var.cd_content_filename_path, {
       internet_install  = var.internet_install
-      root_password   = var.root_password
-      ssh_username    = var.ssh_username
-      ssh_password    = var.cd_content_filename == "user-data" ? bcrypt("${var.ssh_password}") : var.ssh_password
+      root_password   = local.root_password
+      ssh_username    = local.ssh_username
+      ssh_password    = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
       net_ip          = var.net_ip
       net_gateway     = var.net_gateway
       net_netmask     = var.net_netmask
@@ -166,8 +166,8 @@ source "vsphere-iso" "this" {
   pause_before_connecting      = var.pause_before_connecting
   ssh_host                     = var.ssh_host
   ssh_port                     = var.ssh_port
-  ssh_username                 = var.ssh_username
-  ssh_password                 = var.ssh_password
+  ssh_username                 = local.ssh_username
+  ssh_password                 = local.ssh_password
   ssh_ciphers                  = var.ssh_ciphers
   ssh_clear_authorized_keys    = var.ssh_clear_authorized_keys
   ssh_key_exchange_algorithms  = var.ssh_key_exchange_algorithms
@@ -195,15 +195,15 @@ build {
     playbook_file       = "${var.ansible_path}/playbooks/${var.ansible_playbook}"
     roles_path          = "${var.ansible_path}/roles/base"
     inventory_directory = "${var.ansible_path}/inventory"
-    user                = "${var.ssh_username}"
+    user                = "${local.ssh_username}"
     groups              = "${var.ansible_groups}"
     host_alias          = "${var.vm_name}"
-    #extra_arguments     = [ "--limit=!packer_test"]
+    extra_arguments     = [ "--extra-vars", "ansible_ssh_pass=${local.ssh_password}", "--scp-extra-args", "'-O'"]
     ansible_env_vars = [
+      "ANSIBLE_HOST_KEY_CHECKING=False",
       "ANSIBLE_CONFIG=${var.ansible_path}/ansible.cfg",
       "ANSIBLE_FORCE_COLOR=1",
       "PACKER_BUILD_NAME=${var.vm_name}"
     ]
-    #"ansible_ssh_pass=${var.ssh_password}"
   }
 }
