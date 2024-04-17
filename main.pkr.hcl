@@ -13,22 +13,22 @@ source "vsphere-iso" "this" {
 
   ### Http directory configuration
   http_directory = var.http_directory
-  http_content   = var.http_content_filename == "" ? {} : merge({
+  http_content = var.http_content_filename == "" ? {} : merge({
     "/${var.http_content_filename}" = templatefile(var.http_content_filename_path, {
-      internet_install  = var.internet_install
-      root_password   = local.root_password
-      ssh_username    = local.ssh_username
-      ssh_password    = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
-      net_ip          = var.net_ip
-      net_gateway     = var.net_gateway
-      net_netmask     = var.net_netmask
-      net_dns         = var.net_dns
-      timezone        = var.timezone
-      locales         = var.locales
-      keyboard_layout = var.keyboard_layout
-      disk_swap_size  = var.disk_swap_size
-      disk_boot_size  = var.disk_boot_size
-      http_proxy      = var.http_proxy
+      internet_install = var.internet_install
+      root_password    = local.root_password
+      ssh_username     = local.ssh_username
+      ssh_password     = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
+      net_ip           = var.net_ip
+      net_gateway      = var.net_gateway
+      net_netmask      = var.net_netmask
+      net_dns          = var.net_dns
+      timezone         = var.timezone
+      locales          = var.locales
+      keyboard_layout  = var.keyboard_layout
+      disk_swap_size   = var.disk_swap_size
+      disk_boot_size   = var.disk_boot_size
+      http_proxy       = var.http_proxy
     })
   }, var.http_content_extra)
   http_port_min     = var.http_port_min
@@ -39,25 +39,27 @@ source "vsphere-iso" "this" {
   floppy_img_path = var.floppy_img_path
   floppy_files    = var.floppy_files
   floppy_dirs     = var.floppy_dirs
-  floppy_content   = var.floppy_content_filename == "" ? {} : merge({
+  floppy_content = var.floppy_content_filename == "" ? {} : merge({
     "/${var.floppy_content_filename}" = templatefile(var.floppy_content_filename_path, {
-      internet_install  = var.internet_install
-      root_password   = local.root_password
-      ssh_username    = local.ssh_username
-      ssh_password    = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
-      net_ip          = var.net_ip
-      net_gateway     = var.net_gateway
-      net_netmask     = var.net_netmask
-      net_dns         = var.net_dns
-      timezone        = var.timezone
-      locales         = var.locales
-      keyboard_layout = var.keyboard_layout
-      disk_swap_size  = var.disk_swap_size
-      disk_boot_size  = var.disk_boot_size
-      http_proxy      = var.http_proxy
+      internet_install = var.internet_install
+      root_password    = local.root_password
+      ssh_username     = local.ssh_username
+      ssh_password     = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
+      net_ip           = var.net_ip
+      net_gateway      = var.net_gateway
+      net_netmask      = var.net_netmask
+      net_dns          = var.net_dns
+      timezone         = var.timezone
+      locales          = var.locales
+      keyboard_layout  = var.keyboard_layout
+      disk_swap_size   = var.disk_swap_size
+      disk_boot_size   = var.disk_boot_size
+      http_proxy       = var.http_proxy
+      winrm_username   = var.winrm_username
+      winrm_password   = var.winrm_password
     })
   }, var.floppy_content_extra)
-  floppy_label    = var.floppy_label
+  floppy_label = var.floppy_label
 
   ### Connection Configuration
   vcenter_server      = local.vsphere_server
@@ -119,25 +121,25 @@ source "vsphere-iso" "this" {
   iso_paths    = var.iso_paths
   remove_cdrom = var.remove_cdrom
   cd_files     = var.cd_files
-  cd_content   = var.cd_content_filename == "" ? {} : merge({
+  cd_content = var.cd_content_filename == "" ? {} : merge({
     "/${var.cd_content_filename}" = templatefile(var.cd_content_filename_path, {
-      internet_install  = var.internet_install
-      root_password   = local.root_password
-      ssh_username    = local.ssh_username
-      ssh_password    = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
-      net_ip          = var.net_ip
-      net_gateway     = var.net_gateway
-      net_netmask     = var.net_netmask
-      net_dns         = var.net_dns
-      timezone        = var.timezone
-      locales         = var.locales
-      keyboard_layout = var.keyboard_layout
-      disk_swap_size  = var.disk_swap_size
-      disk_boot_size  = var.disk_boot_size
-      http_proxy      = var.http_proxy
+      internet_install = var.internet_install
+      root_password    = local.root_password
+      ssh_username     = local.ssh_username
+      ssh_password     = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
+      net_ip           = var.net_ip
+      net_gateway      = var.net_gateway
+      net_netmask      = var.net_netmask
+      net_dns          = var.net_dns
+      timezone         = var.timezone
+      locales          = var.locales
+      keyboard_layout  = var.keyboard_layout
+      disk_swap_size   = var.disk_swap_size
+      disk_boot_size   = var.disk_boot_size
+      http_proxy       = var.http_proxy
     })
   }, var.cd_content_extra)
-  cd_label     = var.cd_label
+  cd_label = var.cd_label
 
   ### Create Configuration
   vm_version    = var.guest_os_version
@@ -182,6 +184,16 @@ source "vsphere-iso" "this" {
   ssh_bastion_username         = var.ssh_bastion_username
   ssh_bastion_password         = var.ssh_bastion_password
   ssh_bastion_interactive      = var.ssh_bastion_interactive
+
+  winrm_username = var.winrm_username
+  winrm_password = var.winrm_password
+  winrm_host     = var.winrm_host
+  winrm_no_proxy = var.winrm_no_proxy
+  winrm_port     = var.winrm_port
+  winrm_timeout  = var.winrm_timeout
+  winrm_use_ssl  = var.winrm_use_ssl
+  winrm_insecure = var.winrm_insecure
+  winrm_use_ntlm = var.winrm_use_ntlm
 }
 
 
@@ -198,7 +210,7 @@ build {
     user                = "${local.ssh_username}"
     groups              = "${var.ansible_groups}"
     host_alias          = "${var.vm_name}"
-    extra_arguments     = [ "--extra-vars", "ansible_ssh_pass=${local.ssh_password}"]
+    extra_arguments     = ["--extra-vars", "ansible_ssh_pass=${local.ssh_password}"]
     #extra_arguments     = [ "--extra-vars", "ansible_ssh_pass=${local.ssh_password}", "--scp-extra-args", "'-O'"] #debian12
     ansible_env_vars = [
       "ANSIBLE_HOST_KEY_CHECKING=False",
