@@ -55,8 +55,8 @@ source "vsphere-iso" "this" {
       disk_swap_size   = var.disk_swap_size
       disk_boot_size   = var.disk_boot_size
       http_proxy       = var.http_proxy
-      winrm_username   = var.winrm_username
-      winrm_password   = var.winrm_password
+      winrm_username   = local.winrm_username
+      winrm_password   = local.winrm_password
     })
   }, var.floppy_content_extra)
   floppy_label = var.floppy_label
@@ -185,8 +185,8 @@ source "vsphere-iso" "this" {
   ssh_bastion_password         = var.ssh_bastion_password
   ssh_bastion_interactive      = var.ssh_bastion_interactive
 
-  winrm_username = var.winrm_username
-  winrm_password = var.winrm_password
+  winrm_username = local.winrm_username
+  winrm_password = local.winrm_password
   winrm_host     = var.winrm_host
   winrm_no_proxy = var.winrm_no_proxy
   winrm_port     = var.winrm_port
