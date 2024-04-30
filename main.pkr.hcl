@@ -207,7 +207,7 @@ build {
     playbook_file       = "${var.ansible_path}/playbooks/${var.ansible_playbook}"
     roles_path          = "${var.ansible_path}/roles/base"
     inventory_directory = "${var.ansible_path}/inventory"
-    user                = "${local.ssh_username}"
+    user                = var.communicator == "ssh" ? "${local.ssh_username}" : "${local.winrm_username}"
     groups              = "${var.ansible_groups}"
     host_alias          = "${var.vm_name}"
     extra_arguments     = ["--extra-vars", "ansible_ssh_pass=${local.ssh_password}"]
