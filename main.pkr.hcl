@@ -16,6 +16,7 @@ source "vsphere-iso" "this" {
   http_content = var.http_content_filename == "" ? {} : merge({
     "/${var.http_content_filename}" = templatefile(var.http_content_filename_path, {
       internet_install = var.internet_install
+      vm_name          = var.vm_name
       root_password    = local.root_password
       ssh_username     = local.ssh_username
       ssh_password     = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
@@ -29,6 +30,8 @@ source "vsphere-iso" "this" {
       disk_swap_size   = var.disk_swap_size
       disk_boot_size   = var.disk_boot_size
       http_proxy       = var.http_proxy
+      winrm_username   = local.winrm_username
+      winrm_password   = local.winrm_password
     })
   }, var.http_content_extra)
   http_port_min     = var.http_port_min
@@ -42,6 +45,7 @@ source "vsphere-iso" "this" {
   floppy_content = var.floppy_content_filename == "" ? {} : merge({
     "/${var.floppy_content_filename}" = templatefile(var.floppy_content_filename_path, {
       internet_install = var.internet_install
+      vm_name          = var.vm_name
       root_password    = local.root_password
       ssh_username     = local.ssh_username
       ssh_password     = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
@@ -60,6 +64,34 @@ source "vsphere-iso" "this" {
     })
   }, var.floppy_content_extra)
   floppy_label = var.floppy_label
+
+  ### CDRom Configuration
+  cdrom_type   = var.cdrom_type
+  iso_paths    = var.iso_paths
+  remove_cdrom = var.remove_cdrom
+  cd_files     = var.cd_files
+  cd_content = var.cd_content_filename == "" ? {} : merge({
+    "/${var.cd_content_filename}" = templatefile(var.cd_content_filename_path, {
+      internet_install = var.internet_install
+      vm_name          = var.vm_name
+      root_password    = local.root_password
+      ssh_username     = local.ssh_username
+      ssh_password     = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
+      net_ip           = var.net_ip
+      net_gateway      = var.net_gateway
+      net_netmask      = var.net_netmask
+      net_dns          = var.net_dns
+      timezone         = var.timezone
+      locales          = var.locales
+      keyboard_layout  = var.keyboard_layout
+      disk_swap_size   = var.disk_swap_size
+      disk_boot_size   = var.disk_boot_size
+      http_proxy       = var.http_proxy
+      winrm_username   = local.winrm_username
+      winrm_password   = local.winrm_password
+    })
+  }, var.cd_content_extra)
+  cd_label = var.cd_label
 
   ### Connection Configuration
   vcenter_server      = local.vsphere_server
@@ -115,31 +147,6 @@ source "vsphere-iso" "this" {
   iso_url              = var.iso_url
   iso_target_path      = var.iso_target_path
   iso_target_extension = var.iso_target_extension
-
-  ### CDRom Configuration
-  cdrom_type   = var.cdrom_type
-  iso_paths    = var.iso_paths
-  remove_cdrom = var.remove_cdrom
-  cd_files     = var.cd_files
-  cd_content = var.cd_content_filename == "" ? {} : merge({
-    "/${var.cd_content_filename}" = templatefile(var.cd_content_filename_path, {
-      internet_install = var.internet_install
-      root_password    = local.root_password
-      ssh_username     = local.ssh_username
-      ssh_password     = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
-      net_ip           = var.net_ip
-      net_gateway      = var.net_gateway
-      net_netmask      = var.net_netmask
-      net_dns          = var.net_dns
-      timezone         = var.timezone
-      locales          = var.locales
-      keyboard_layout  = var.keyboard_layout
-      disk_swap_size   = var.disk_swap_size
-      disk_boot_size   = var.disk_boot_size
-      http_proxy       = var.http_proxy
-    })
-  }, var.cd_content_extra)
-  cd_label = var.cd_label
 
   ### Create Configuration
   vm_version    = var.guest_os_version

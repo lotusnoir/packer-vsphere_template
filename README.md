@@ -17,7 +17,7 @@ root_password
 ssh_username
 ssh_password
 
-#### In plain 
+#### In plain
 
 just set in your variables.pkrvars.hcl
 

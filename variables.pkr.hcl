@@ -109,9 +109,9 @@ variable "disk_boot_size" {
   default = "640"
 }
 variable "http_proxy" {
-  description = ""
+  description = "If internet install, do you need to set a proxy ? default means no proxy"
   type        = string
-  default     = null
+  default     = ""
 }
 ########################
 variable "http_port_min" {

@@ -12,7 +12,7 @@ variables:
 #       file: .mega-linter.yml
 mega-linter:
   stage: lint
-  image: oxsecurity/megalinter:v7
+  image: oxsecurity/megalinter:v8
   rules:
     - if: $CI_PIPELINE_SOURCE == "push"
   script: ["true"]
