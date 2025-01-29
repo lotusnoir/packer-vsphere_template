@@ -1,6 +1,4 @@
-
-
-### secrets
+## Secrets
 
 There is 3 possibility for now
 
@@ -17,13 +15,13 @@ root_password
 ssh_username
 ssh_password
 
-#### In plain
+### In plain
 
 just set in your variables.pkrvars.hcl
 
     value = "xxxx"
 
-#### In Env
+### In Env
 
 Create a executable file containing
 
@@ -31,7 +29,7 @@ Create a executable file containing
 
 The problem with the env its that you can set differents values for the same variable
 
-#### In vault
+### In vault
 
 just set in your variables.pkrvars.hcl
 
@@ -41,3 +39,11 @@ just set in your variables.pkrvars.hcl
 
 In vault path you need to have the vsphere credentials in a subfolder vsphere and ssh ones in a subfolder ssh
 In the variables you dont assign the value but the vaul key tto find the value
+
+## Pre-commit
+
+## Install last version of go
+
+sudo apt update && sudo apt install build-essential -y
+sudo add-apt-repository ppa:longsleep/golang-backports
+sudo apt update && sudo apt install golang-go

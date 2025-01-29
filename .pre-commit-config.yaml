@@ -1,7 +1,7 @@
 ---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.6.0
     hooks:
       - id: check-added-large-files
       - id: end-of-file-fixer
@@ -9,39 +9,44 @@ repos:
       - id: mixed-line-ending
       - id: check-byte-order-marker
       - id: check-merge-conflict
-      - id: check-executables-have-shebangs
-      - id: check-symlinks
       - id: detect-private-key
       - id: check-yaml
         files: .*\.(yaml|yml)$
 
-          #- repo: https://github.com/Yelp/detect-secrets
-          #  rev: v1.5.0
-          #  hooks:
-          #    - id: detect-secrets
-          #      args: [scan, --baseline, .secrets.baseline, --use-all-plugins]
-          #      exclude: package.lock.json
-
-  - repo: https://github.com/gruntwork-io/pre-commit
-    rev: v0.1.25
+  # Autoformat: YAML, JSON, Markdown, etc.
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v3.1.0
     hooks:
-      - id: terraform-fmt
-      - id: terraform-validate
-      - id: tflint
+      - id: prettier
         args:
-          - "--module"
-          - "--config=.tflint.hcl"
+          ["--ignore-unknown", "--no-error-on-unmatched-pattern", "!chart/**"]
 
-  - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.77.0
+  # Lint: YAML
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.35.1
     hooks:
-      - id: terraform_tfsec
+      - id: yamllint
+        args:
+          [
+            "-d {extends: relaxed, rules: {line-length: disable}, ignore: chart}",
+            "-s",
+          ]
+        files: \.(yaml|yml)$
 
+  # Lint: Markdown
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.42.0
+    hooks:
+      - id: markdownlint
+        args: ["--fix", "--disable", "MD013 MD033"]
+
+  # Lint: Packer
   - repo: https://github.com/cisagov/pre-commit-packer
     rev: v0.3.0
     hooks:
       - id: packer_fmt
       - id: packer_validate
+        args: ["--var-file=exemples/debian11.pkrvars.hcl"]
 
   - repo: https://github.com/Lucas-C/pre-commit-hooks
     rev: v1.3.1
@@ -56,3 +61,8 @@ repos:
         entry: bash -c 'trufflehog --no-update git file://. --since-commit HEAD --only-verified --fail'
         language: system
         stages: ["commit", "push"]
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.23.1
+    hooks:
+      - id: gitleaks

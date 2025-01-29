@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------------------
-# Variable definition file to build the Debian 11 image 
+# Variable definition file to build the Debian 11 image
 #----------------------------------------------------------------------------------
 # https://www.debian.org/download
 # https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/SHA512SUMS
@@ -39,9 +39,9 @@ http_port_min              = 8080
 http_port_max              = 8080
 
 ### Connection Configuration
-vsphere_server     = "10.1.1.1"
-vsphere_username   = "test"
-vsphere_password   = "test"
+vsphere_server      = "10.1.1.1"
+vsphere_username    = "test"
+vsphere_password    = "test"
 insecure_connection = true
 vsphere_datacenter  = "MyDC"
 
