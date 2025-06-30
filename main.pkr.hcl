@@ -217,7 +217,8 @@ build {
     user                = var.communicator == "ssh" ? "${local.ssh_username}" : "${local.winrm_username}"
     groups              = "${var.ansible_groups}"
     host_alias          = "${var.vm_name}"
-    extra_arguments     = ["--extra-vars", "ansible_ssh_pass=${local.ssh_password}"]
+    use_proxy           = false
+    extra_arguments     = var.communicator == "ssh" ? ["--extra-vars", "ansible_ssh_pass=${local.ssh_password}"] : ["-e", "ansible_winrm_server_cert_validation=ignore"]
     #extra_arguments     = [ "--extra-vars", "ansible_ssh_pass=${local.ssh_password}", "--scp-extra-args", "'-O'"] #debian12
     ansible_env_vars = [
       "ANSIBLE_HOST_KEY_CHECKING=False",
