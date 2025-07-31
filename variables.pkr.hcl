@@ -40,7 +40,6 @@ variable "http_ip" {
   default     = null
 }
 
-
 #############################################################
 ### Http directory configuration
 variable "http_directory" {
@@ -53,6 +52,10 @@ variable "http_directory" {
 variable "internet_install" {
   type    = bool
   default = true
+}
+variable "major_version" {
+  type    = string
+  default = "9"
 }
 variable "http_content_filename" {
   type    = string

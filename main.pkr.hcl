@@ -30,6 +30,7 @@ source "vsphere-iso" "this" {
       disk_swap_size   = var.disk_swap_size
       disk_boot_size   = var.disk_boot_size
       http_proxy       = var.http_proxy
+      major_version    = var.major_version
       winrm_username   = local.winrm_username
       winrm_password   = local.winrm_password
     })
@@ -59,6 +60,7 @@ source "vsphere-iso" "this" {
       disk_swap_size   = var.disk_swap_size
       disk_boot_size   = var.disk_boot_size
       http_proxy       = var.http_proxy
+      major_version    = var.major_version
       winrm_username   = local.winrm_username
       winrm_password   = local.winrm_password
     })
@@ -87,6 +89,7 @@ source "vsphere-iso" "this" {
       disk_swap_size   = var.disk_swap_size
       disk_boot_size   = var.disk_boot_size
       http_proxy       = var.http_proxy
+      major_version    = var.major_version
       winrm_username   = local.winrm_username
       winrm_password   = local.winrm_password
     })
