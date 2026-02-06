@@ -17,6 +17,7 @@ source "vsphere-iso" "this" {
     "/${var.http_content_filename}" = templatefile(var.http_content_filename_path, {
       internet_install = var.internet_install
       vm_name          = var.vm_name
+      filesystem_type  = var.filesystem_type
       root_password    = local.root_password
       ssh_username     = local.ssh_username
       ssh_password     = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
@@ -47,6 +48,7 @@ source "vsphere-iso" "this" {
     "/${var.floppy_content_filename}" = templatefile(var.floppy_content_filename_path, {
       internet_install = var.internet_install
       vm_name          = var.vm_name
+      filesystem_type  = var.filesystem_type
       root_password    = local.root_password
       ssh_username     = local.ssh_username
       ssh_password     = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password
@@ -76,6 +78,7 @@ source "vsphere-iso" "this" {
     "/${var.cd_content_filename}" = templatefile(var.cd_content_filename_path, {
       internet_install = var.internet_install
       vm_name          = var.vm_name
+      filesystem_type  = var.filesystem_type
       root_password    = local.root_password
       ssh_username     = local.ssh_username
       ssh_password     = var.cd_content_filename == "user-data" ? bcrypt("${local.ssh_password}") : local.ssh_password

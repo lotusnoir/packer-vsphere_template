@@ -116,6 +116,12 @@ variable "http_proxy" {
   type        = string
   default     = ""
 }
+variable "filesystem_type" {
+  description = "/boot filesystem type, ext4 or xfs for exemple"
+  type        = string
+  default     = "ext4"
+}
+
 ########################
 variable "http_port_min" {
   description = "These are the minimum and maximum port to use for the HTTP server started to serve the http_directory. Because Packer often runs in parallel, Packer will choose a randomly available port in this range to run the HTTP server. If you want to force the HTTP server to be on one port, make this minimum and maximum port the same. "
