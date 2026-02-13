@@ -455,7 +455,12 @@ variable "disk_size" {
   default     = 6144
 }
 variable "disk_thin_provisioned" {
-  description = ""
+  description = "Enable thin provisioning for the disk"
+  type        = bool
+  default     = false
+}
+variable "disk_eagerly_scrub" {
+  description = "Enable eager scrubbing for the disk."
   type        = bool
   default     = false
 }

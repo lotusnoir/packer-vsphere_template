@@ -1,5 +1,6 @@
 ##########################################################
 ## CLONE PARAMS
+## https://developer.hashicorp.com/packer/integrations/vmware/vsphere/latest/components/builder/vsphere-iso
 ##########################################################
 source "vsphere-iso" "this" {
   ### Configuration Reference
@@ -168,6 +169,7 @@ source "vsphere-iso" "this" {
   storage {
     disk_size             = var.disk_size
     disk_thin_provisioned = var.disk_thin_provisioned
+    disk_eagerly_scrub    = var.disk_eagerly_scrub
   }
 
   ### Network Adapter Configuration
