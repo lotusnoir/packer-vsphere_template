@@ -111,6 +111,10 @@ variable "disk_boot_size" {
   type    = string
   default = "640"
 }
+variable "disk_name" {
+  type    = string
+  default = "sda"
+}
 variable "http_proxy" {
   description = "If internet install, do you need to set a proxy ? default means no proxy"
   type        = string

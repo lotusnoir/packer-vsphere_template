@@ -29,6 +29,7 @@ source "vsphere-iso" "this" {
       timezone         = var.timezone
       locales          = var.locales
       keyboard_layout  = var.keyboard_layout
+      disk_name        = var.disk_name
       disk_swap_size   = var.disk_swap_size
       disk_boot_size   = var.disk_boot_size
       http_proxy       = var.http_proxy
@@ -60,6 +61,7 @@ source "vsphere-iso" "this" {
       timezone         = var.timezone
       locales          = var.locales
       keyboard_layout  = var.keyboard_layout
+      disk_name        = var.disk_name
       disk_swap_size   = var.disk_swap_size
       disk_boot_size   = var.disk_boot_size
       http_proxy       = var.http_proxy
@@ -90,6 +92,7 @@ source "vsphere-iso" "this" {
       timezone         = var.timezone
       locales          = var.locales
       keyboard_layout  = var.keyboard_layout
+      disk_name        = var.disk_name
       disk_swap_size   = var.disk_swap_size
       disk_boot_size   = var.disk_boot_size
       http_proxy       = var.http_proxy
